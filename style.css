@@ -1,0 +1,339 @@
+<<<<<<< HEAD
+/* 모든 요소의 크기 계산 방식을 border-box로 통일하고 기본 여백 제거 */
+*,
+*::before,
+*::after {
+=======
+* {
+>>>>>>> c4671eb (Last commit)
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+<<<<<<< HEAD
+/* 자주 쓰는 색상을 변수로 정의해두면 나중에 한 곳만 바꿔도 전체가 바뀜 */
+=======
+>>>>>>> c4671eb (Last commit)
+:root {
+    --bg:    #f5f5f0;  /* 배경색 (연한 크림) */
+    --green: #1a5c35;  /* 짙은 초록 (주요 강조색) */
+    --mint:  #c0e8d0;  /* 연한 초록 (호버·선택 배경) */
+    --gold:  #cc9933;  /* 금색 (테두리 강조) */
+}
+
+html { font-size: 15px; }  /* 기준 글자 크기: rem 단위의 기준점 */
+<<<<<<< HEAD
+
+body {
+    background: var(--bg);
+    color: #333;
+    min-height: 100vh;     /* 화면 전체 높이 최소 보장 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── 레이아웃 ─────────────────────────── */
+main {
+    flex: 1;
+    max-width: 1500px;     /* 넓은 화면에서도 너무 늘어나지 않게 제한 */
+=======
+body {
+    background: var(--bg);
+    color: #333;
+}
+
+main {
+    max-width: 1200px;     /* 넓은 화면에서도 너무 늘어나지 않게 제한 */
+>>>>>>> c4671eb (Last commit)
+    width: 100%;
+    margin: 0 auto;        /* 가운데 정렬 */
+    padding: 10px;
+    display: flex;
+<<<<<<< HEAD
+
+    /* 지도 + 사이드바를 가로로 나란히 배치 */
+    .map-layout {
+        display: flex;
+        gap: 12px;         /* 지도와 사이드바 사이 간격 */
+        flex: 1;
+        min-height: 0;     /* flex 안에서 자식이 축소될 수 있도록 허용 */
+
+        /* 지도를 감싸는 흰 박스 */
+        .map-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+            /* calc(): 화면 높이에 비례해서 크기 자동 계산 */
+            max-height: calc((100vh - 111px) * 0.875 + 50px);
+            width: calc(((100vh - 111px) * 0.875) * 0.957 + 20px);
+            min-width: 280px;
+            flex-shrink: 0;  /* 화면이 좁아져도 이 박스는 줄어들지 않음 */
+
+            /* SVG 지도가 박스를 꽉 채우도록 stretch */
+            .map-wrap {
+                flex: 1;
+                min-height: 0;
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+            }
+        }
+    }
+}
+
+/* ── 지도(SVG) ───────────────────────── */
+#korea-map {
+    width: 100%;
+    height: 100%;
+    display: block;
+=======
+    flex: 1;
+    gap: 20px;
+
+    .map-box {              /* 지도를 감싸는 흰 박스 */
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+        width: 700px;
+        min-width: 280px;
+    }
+
+    .sidebar {
+        flex: 1;           /* 지도 박스 옆 남은 공간을 모두 차지 */
+        padding: 20px;
+
+        .sidebar-hint {    /* 클릭 전 안내 문구 (flex로 가운데 정렬) */
+            padding: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            color: #000;
+            background-color: #fff;
+        }
+
+        /* 클릭 후 통계 콘텐츠 */
+        .sidebar-body {
+            display: flex;
+            flex-direction: column;
+
+            .sidebar-title {   /* 지역명 제목 */
+                font-size: 2rem;
+                font-weight: bold;
+                color: var(--green);
+            }
+
+            .type-list {     /* 도서관 유형 목록 */
+                margin-top: 10px;
+                list-style: none;
+
+                .type-row {   /* 도서관 유형 한 줄 : "유형명 + 개수"를 양 끝 배치 */
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px;
+                    background: var(--bg);
+                    border: 1px solid #ddd;
+                }
+            }
+            
+            .stat-list {   /* 열람좌석수·대출권수 통계 */
+                margin-top: 10px;
+
+                .stat-item {   /* 통계 한 줄: 레이블 + 수치를 양 끝 배치 */
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px;
+                    background: var(--green);
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+}
+
+#korea-map {
+    width: 100%;
+    height: 100%;
+>>>>>>> c4671eb (Last commit)
+
+    /* SVG 안의 모든 요소는 기본적으로 마우스 이벤트 무시
+       (지역 path만 이벤트를 받도록 아래에서 개별 허용) */
+    #korea-map * {
+        pointer-events: none;
+    }
+
+    /* 각 지역(시도)을 나타내는 SVG path */
+    .region {
+<<<<<<< HEAD
+        fill: none;          /* 기본: 색 없음 (테두리만 보임) */
+        stroke: #555;        /* 지역 경계선 색 */
+        stroke-width: 0.8;
+        cursor: pointer;
+        pointer-events: all; /* 이 요소만 마우스 이벤트 허용 */
+
+        /* 마우스를 올렸을 때 */
+        &:hover {
+            fill: var(--mint);
+            stroke: var(--gold);
+            stroke-width: 2;
+        }
+
+        /* 클릭해서 선택된 상태 */
+        &.active {
+            fill: var(--mint);
+            stroke: var(--gold);
+            stroke-width: 1.5;
+=======
+        fill: none;           /* 기본: 색 없음 (테두리만 보임) */
+        stroke: #444;       /* 지역 경계선 색 */
+        cursor: pointer;
+        pointer-events: all;  /* 이 요소만 마우스 이벤트 허용 */
+
+        &:hover {
+            fill: var(--mint);
+            stroke: var(--gold);
+        }
+
+        &.active {
+            fill: var(--mint);
+            stroke: var(--gold);
+>>>>>>> c4671eb (Last commit)
+        }
+    }
+}
+
+<<<<<<< HEAD
+/* ── 툴팁 ────────────────────────────── */
+=======
+>>>>>>> c4671eb (Last commit)
+/* position:fixed + JS로 left/top을 바꿔 커서를 따라다니게 함 */
+.tooltip {
+    position: fixed;
+    background: #333;
+<<<<<<< HEAD
+    color: #fff;
+    padding: 6px 12px;
+    font-size: .77rem;
+    pointer-events: none;  /* 툴팁 위에 마우스가 올라가도 이벤트 무시 */
+    z-index: 300;          /* 다른 요소 위에 표시 */
+    display: none;         /* 기본: 숨김 → JS에서 show/hide */
+    min-width: 110px;
+    text-align: center;
+
+    .tooltip-name  { font-weight: 700; font-size: 1rem; color: #ffdd88; }
+    .tooltip-count { font-size: 1rem;  color: #ccc;     margin-top: 2px; }
+}
+
+/* ── 사이드바 ─────────────────────────── */
+.sidebar {
+    flex: 1;               /* 지도 박스 옆 남은 공간을 모두 차지 */
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-self: flex-start; /* 지도 높이에 맞춰 늘어나지 않게 */
+    max-height: calc((100vh - 111px) * 0.875 + 50px);
+
+    /* 클릭 전 안내 문구 (flex로 가운데 정렬) */
+    .sidebar-hint {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #888;
+        font-size: .82rem;
+        line-height: 1.7;
+    }
+
+    /* 클릭 후 통계 콘텐츠 */
+    .sidebar-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .sidebar-title {   /* 지역명 제목 */
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--green);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--mint);
+        }
+
+        /* 도서관 유형 목록 */
+        .type-list {
+            margin-top: 10px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .type-row {   /* 유형 한 줄: 유형명 + 개수를 양 끝 배치 */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 10px;
+                background: var(--bg);
+                border: 1px solid #ddd;
+
+                .type-name  { font-size: .8rem; color: #555; }
+                .type-count { font-size: .8rem; font-weight: 700; color: var(--green); }
+            }
+        }
+
+        /* 열람좌석수·대출권수 통계 */
+        .stat-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .stat-item {   /* 통계 한 줄: 레이블 + 수치를 양 끝 배치 */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 10px;
+                background: var(--green);
+
+                .stat-label { font-size: .78rem; color: #ccc; }
+                .stat-value { font-size: .9rem;  font-weight: 700; color: #ffdd88; }
+            }
+        }
+    }
+}
+
+/* ── 반응형 ───────────────────────────── */
+/* 화면이 좁으면 지도·사이드바를 세로로 쌓음 */
+@media (max-width: 900px) {
+    main         { height: auto; overflow: visible; }
+    .map-layout  { flex-direction: column; height: auto; }
+    .map-box     { width: 100%; max-height: none; }
+    .sidebar     { max-height: none; align-self: stretch; }
+}
+
+@media (max-width: 560px) {
+    main { padding: 8px; gap: 8px; }
+}
+=======
+    pointer-events: none;  /* 툴팁 위에 마우스가 올라가도 이벤트 무시 */
+    z-index: 300;          /* 다른 요소 위에 표시 */
+    display: none;         /* 기본: 숨김 → JS에서 show/hide */
+    width: 110px;
+    text-align: center;
+    color: #fff;
+}
+>>>>>>> c4671eb (Last commit)
